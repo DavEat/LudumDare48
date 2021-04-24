@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpearCollision : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.LogFormat("Spear touch enemy: {0}", other.name, other.gameObject);
+            Enemy e = other.GetComponent<Enemy>();
+            if (e != null)
+                e.SetDamage(Action.Damage_Spear);
+        }
+    }
+}

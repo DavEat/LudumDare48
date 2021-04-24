@@ -12,11 +12,14 @@ public class GrenadeLauncher : MonoBehaviour
     [SerializeField] Transform m_targetPoint = null;
     [SerializeField] Transform m_targetPointPivot = null;
 
+    float m_distance = 10;
+
     Transform m_transform = null;
 
     void Start()
     {
         m_transform = GetComponent<Transform>();
+        m_distance = (m_targetPoint.position - m_targetPointPivot.position).magnitude;
     }
 
     void FixedUpdate()
@@ -38,11 +41,18 @@ public class GrenadeLauncher : MonoBehaviour
     }
     bool CanPrepare()
     {
-        return m_preparing && m_lastFireTime < Time.time;
+        return m_preparing && CanFire();
+    }
+    bool CanFire()
+    {
+        return m_lastFireTime < Time.time;
     }
     public void Fire()
     {
-        m_lastFireTime = Time.time + m_fireRate;
-        Instantiate(m_grenadePrefab, m_targetPointPivot.position, Quaternion.Euler(m_targetPointPivot.eulerAngles)).Init();
+        if (CanFire())
+        {
+            m_lastFireTime = Time.time + m_fireRate;
+            Instantiate(m_grenadePrefab, m_targetPointPivot.position, Quaternion.Euler(m_targetPointPivot.eulerAngles)).Init(m_distance);
+        }
     }
 }

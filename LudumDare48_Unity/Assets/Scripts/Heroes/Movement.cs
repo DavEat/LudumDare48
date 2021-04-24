@@ -31,7 +31,7 @@ public class Movement : Singleton<Movement>
     Vector3 m_dashDirection = Vector3.zero;
 
     bool m_shouldLook = false;
-    float m_lookAngle = 0;
+    Vector2 m_lookDirection = Vector2.zero;
     [Header("Look")]
     [SerializeField] float m_moveLookSpeed = 1.5f;
     [SerializeField] float m_shieldLookSpeed = 3;
@@ -48,7 +48,7 @@ public class Movement : Singleton<Movement>
 
     public Vector3 Position { get { return m_transform.position; } }
     public Vector3 PositionAndVelocity { get { return m_dashing ? m_transform.position : m_transform.position + m_rb.velocity; } }
-    public float LookAngle { get { return m_lookAngle; } }
+    public float LookAngle { get { return Vector2.SignedAngle(m_lookDirection, Vector2.up); } }
     public bool Dashing { get { return m_dashing; } }
 
     Action m_action = null;
@@ -79,8 +79,11 @@ public class Movement : Singleton<Movement>
             if (m_shouldLook)
             {
                 if (m_action.shieldActive)
-                    Look(m_lookAngle, m_shieldLookSpeed, Time.fixedDeltaTime);
+                    Look(LookAngle, m_shieldLookSpeed, Time.fixedDeltaTime);
             }
+
+            if (m_directionArrow != null)
+                m_directionArrow.eulerAngles = new Vector3(m_directionArrow.eulerAngles.x, Vector2.SignedAngle(new Vector2(m_moveDirection.x, m_moveDirection.z), Vector2.up), m_directionArrow.eulerAngles.z);
         }
     }
 
@@ -122,9 +125,6 @@ public class Movement : Singleton<Movement>
         {
             Look(Vector2.SignedAngle(new Vector2(direction.x, direction.z), Vector2.up), m_moveLookSpeed, Time.fixedDeltaTime);
         }
-
-        if (m_directionArrow != null)
-            m_directionArrow.eulerAngles = Vector3.up * Vector2.SignedAngle(new Vector2(direction.x, direction.z), Vector2.up);
     }
     void Break()
     {
@@ -161,7 +161,7 @@ public class Movement : Singleton<Movement>
 
             if (contextInput.sqrMagnitude < DeathZone)
                 m_shouldLook = false;
-            else m_lookAngle = Vector2.SignedAngle(contextInput, Vector2.up);
+            else m_lookDirection = contextInput;
         }
     }
     void Look(float targetAngle, float speed, float elapse)
@@ -174,4 +174,9 @@ public class Movement : Singleton<Movement>
     {
         m_shouldDash = !context.canceled && ! m_dashing;
     }
+    public void OnAttack(float offsetAngle)
+    {
+        float angle = m_directionArrow.eulerAngles.y + offsetAngle;
+        m_transform.eulerAngles = Vector3.up * angle;
+    }    
 }

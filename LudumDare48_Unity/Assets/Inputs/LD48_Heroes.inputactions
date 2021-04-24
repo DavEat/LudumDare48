@@ -46,9 +46,33 @@
                     "interactions": ""
                 },
                 {
+                    "name": "ShieldAttack",
+                    "type": "Button",
+                    "id": "6e88a911-9a8b-48c6-a97c-6a8670e70895",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "6ff9bcb2-c138-42ae-abc5-fc219d79ab36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SpearRound",
+                    "type": "Button",
+                    "id": "2e914775-08ed-4a3f-acb2-bd4edf81b98a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SpearPointy",
+                    "type": "Button",
+                    "id": "db5f0f2d-2704-4f60-bdd2-fe4c23240cbc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -305,6 +329,72 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64a0d41b-5855-42a2-933a-eb09c7000016",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SpearRound",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "effd4fab-8cd6-4d9b-863d-aa0d1b6ae5df",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SpearRound",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f56f32b-36fa-4b4c-82e9-08dfa6c60a8c",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SpearPointy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed4e0aab-157b-488a-a23d-3eea3fd500df",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SpearPointy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5aef1871-dcbb-4ba3-a3d7-1e0356876f45",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShieldAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d06440ba-2b9f-44b6-be04-2e00c0f22f40",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ShieldAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -66,7 +66,8 @@ public class Enemy : MonoBehaviour
         life -= damage;
         if(life <= 0)
         {
-            EnemyManager.inst.enemiesScripts.Remove(this);
+            EnemyManager.inst.deathEnemiesScripts.Add(this);
+            gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }
