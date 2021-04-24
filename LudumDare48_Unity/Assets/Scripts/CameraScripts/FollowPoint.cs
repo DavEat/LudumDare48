@@ -4,7 +4,7 @@ namespace CameraScript
 {
     public class FollowPoint : MonoBehaviour
     {
-        [SerializeField] Rigidbody m_target = null;
+        [SerializeField] Movement m_target = null;
         [SerializeField] float m_speed = 1;
 
         Vector3 m_offset = Vector3.zero;
@@ -29,7 +29,7 @@ namespace CameraScript
         public void Follow(float elapse)
         {
             if (m_target == null) return;
-            m_transform.position = Vector3.Lerp(m_transform.position, m_target.position + m_offset + m_target.velocity, elapse * m_speed);
+            m_transform.position = Vector3.Lerp(m_transform.position, m_target.PositionAndVelocity + m_offset, elapse * m_speed);
         }
     }
 }
