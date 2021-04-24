@@ -22,10 +22,11 @@ public class EnemySpawner : MonoBehaviour
             float randomAngle = Random.Range(-spawnerPreset.randomRotationAngle /2, spawnerPreset.randomRotationAngle /2);
             for (int i = 0; i < spawnerPreset.enemyNbrAtIntantiation; i++)
             {
-                GameObject enemy = Instantiate(spawnerPreset.enemyToSpawn,
+                Enemy enemy = Instantiate(spawnerPreset.enemyToSpawn,
                     transform.position + Quaternion.Euler(0, spawnerPreset.propagationAngle / spawnerPreset.enemyNbrAtIntantiation * (i - (spawnerPreset.enemyNbrAtIntantiation - 1) / 2.0f) + randomAngle, 0) * transform.forward * 2.0f, 
                     transform.rotation * Quaternion.Euler(0, spawnerPreset.propagationAngle / spawnerPreset.enemyNbrAtIntantiation * (i - (spawnerPreset.enemyNbrAtIntantiation - 1) / 2.0f) + randomAngle, 0));
-                enemy.GetComponent<Enemy>().enemySpawner = this;
+                EnemyManager.inst.enemiesScripts.Add(enemy);
+                enemy.enemySpawner = this;
             }
         }
     }

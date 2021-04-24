@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Spawner1
   m_EditorClassIdentifier: 
   randomRotationAngle: 25
-  propagationAngle: 180
-  enemyNbrAtIntantiation: 3
-  secondBetweenTwoSpawn: 0.6
-  enemyToSpawn: {fileID: 2465297916492338541, guid: 213c63ac1a927604f9c1f96f3bec87ef, type: 3}
-  divisionFactor: 2
+  propagationAngle: 360
+  enemyNbrAtIntantiation: 9
+  secondBetweenTwoSpawn: 0.8
+  enemyToSpawn: {fileID: 2465297916492338540, guid: 213c63ac1a927604f9c1f96f3bec87ef, type: 3}
+  divisionFactor: 3
   baseEnemiesSpeed: 1.6

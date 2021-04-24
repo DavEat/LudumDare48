@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyManager : Singleton<EnemyManager>
 {
 
-    public GameObject[] Enemies;
+    public Enemy[] Enemies;
+
+    public List<Enemy> enemiesScripts;
     void Start()
     {
         
