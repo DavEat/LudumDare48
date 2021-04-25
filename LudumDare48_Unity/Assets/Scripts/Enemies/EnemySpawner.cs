@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
                     transform.rotation * Quaternion.Euler(0, spawnerPreset.propagationAngle / spawnerPreset.enemyNbrAtIntantiation * (i - (spawnerPreset.enemyNbrAtIntantiation - 1) / 2.0f) + randomAngle, 0));
                 EnemyManager.inst.enemiesScripts.Add(enemy);
                 enemy.enemySpawner = this;
+                enemy.Init();
             }
         }
     }
