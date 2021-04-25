@@ -50,6 +50,8 @@ public class Movement : Singleton<Movement>
     public Vector3 PositionAndVelocity { get { return m_dashing ? m_transform.position : m_transform.position + m_rb.velocity; } }
     public float LookAngle { get { return Vector2.SignedAngle(m_lookDirection, Vector2.up); } }
     public bool Dashing { get { return m_dashing; } }
+    public bool Moving { get { return !m_dashing && m_shouldMove && m_rb.velocity.sqrMagnitude > .1f; } }
+    public Vector3 DirectionAngle { get { return m_directionArrow.eulerAngles; } }
 
     Action m_action = null;
 

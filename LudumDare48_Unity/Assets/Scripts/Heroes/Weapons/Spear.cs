@@ -9,6 +9,8 @@ public class Spear : MonoBehaviour
     [SerializeField] float m_pointyAttackCoolDown= 1;
     [SerializeField] float m_roundAttackCoolDown = 3;
 
+    [SerializeField] Transform m_pivot = null;
+
     float m_pointyAttackTime = -1;
     float m_roundAttackTime = -1;
 
@@ -22,6 +24,10 @@ public class Spear : MonoBehaviour
     {
         m_transform = GetComponent<Transform>();
         m_anim = GetComponent<Animator>();
+    }
+    void Update()
+    {
+        m_transform.position = m_pivot.position;
     }
     public void PointyAttack()
     {

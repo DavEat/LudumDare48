@@ -32,6 +32,9 @@ public class Action : MonoBehaviour
     }
     void FixedUpdate()
     {
+        foreach (Hero h in m_heroes)
+            h.SetMoving(Movement.inst.Moving);
+
         if (Movement.inst.Dashing)
         {
             foreach (Hero h in m_heroes)

@@ -17,10 +17,40 @@ public class Hero : MonoBehaviour
     [SerializeField] Spear m_spear = null;
 
     Transform m_transform = null;
+    Animator m_anim = null;
 
     void Start()
     {
         m_transform = GetComponent<Transform>();
+        m_anim = GetComponent<Animator>();
+
+        if (m_shield != null)
+            m_anim.SetBool("Shielder", true);
+        if (m_spear != null)
+            m_anim.SetBool("Spearer", true);
+        if (m_machineGun != null)
+            m_anim.SetBool("Gunner", true);
+    }
+    public void SetMoving(bool moving)
+    {
+        m_anim.SetBool("Moving", moving);
+
+        float front = 0;
+        if (Mathf.Abs(Utility.ClampAngle(Movement.inst.DirectionAngle.y - m_transform.eulerAngles.y)) < 50) //front
+            front = 1;
+        else if (Mathf.Abs(Utility.ClampAngle(Movement.inst.DirectionAngle.y - m_transform.eulerAngles.y)) > 180 - 50) //back
+            front = -1;
+        float side = 0;
+        if (front == 0)
+        {
+            float sideA = Utility.ClampAngle(Movement.inst.DirectionAngle.y - m_transform.eulerAngles.y);
+            if (sideA > 50 && sideA < 180 - 50) //right
+                side = 1;
+            else if (sideA < -50 && sideA > -180 + 50) //left
+                side = -1;
+        }
+        m_anim.SetFloat("Front", front);
+        m_anim.SetFloat("Side", side);
     }
     public void SetDefaultPosition()
     {
@@ -35,6 +65,7 @@ public class Hero : MonoBehaviour
             m_raisedShield = false;
             if (m_shield != null)
                 m_shield.RestShield();
+            m_anim.SetBool("Crounching", false);
         }
     }
     public void SetShieldPosition()
@@ -44,12 +75,14 @@ public class Hero : MonoBehaviour
 
         if (!m_raisedShield)
         {
+            m_raisedShield = true;
             if (m_shield != null)
             {
-                m_raisedShield = true;
                 Movement.inst.OnAttack(-m_defaultAngle);
                 m_shield.RaiseShield();
             }
+            m_anim.SetBool("Crounching", true);
+            m_anim.SetTrigger("StartCrounching");
         }
         if (m_machineGun != null)
             m_machineGun.StopFiring();
@@ -93,6 +126,7 @@ public class Hero : MonoBehaviour
         {
             m_spear.RoundAttack();
         }
+        m_anim.SetTrigger("SpearAttack");
     }
     public void SetSpearPointy()
     {

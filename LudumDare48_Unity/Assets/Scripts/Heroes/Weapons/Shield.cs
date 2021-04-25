@@ -9,6 +9,8 @@ public class Shield : MonoBehaviour
     [SerializeField] Vector3 m_defencePositon;
     [SerializeField] Vector3 m_defenceAngles;
 
+    [SerializeField] Transform m_pivot;
+
     [SerializeField] Collider m_collider = null;
 
     Transform m_transform = null;
@@ -22,9 +24,12 @@ public class Shield : MonoBehaviour
     void Start()
     {
         m_transform = GetComponent<Transform>();
-        m_anim = GetComponent<Animator>();
+        m_anim = GetComponentInChildren<Animator>();
     }
-
+    void Update()
+    {
+        m_transform.position = m_pivot.position;
+    }
     public void RestShield()
     {
         //m_transform.localPosition = m_restPositon;

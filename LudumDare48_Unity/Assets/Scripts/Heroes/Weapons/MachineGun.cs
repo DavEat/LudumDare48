@@ -12,6 +12,7 @@ public class MachineGun : MonoBehaviour
     [SerializeField] float m_dispersionAngle = 5;
 
     [SerializeField] Transform m_emmisionPoint = null;
+    [SerializeField] Transform m_pivot = null;
 
     Transform m_transform = null;
 
@@ -22,11 +23,12 @@ public class MachineGun : MonoBehaviour
 
     void FixedUpdate()
     {
+        m_transform.position = m_pivot.position;
         if (CanFire())
         {
             m_transform.eulerAngles = Vector3.up * Movement.inst.LookAngle;
             Fire();
-        } 
+        }
     }
     public void StartFiring()
     {
