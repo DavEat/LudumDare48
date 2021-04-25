@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa45e0ce6a6c7c245a7fca6bc0ed0b7a, type: 3}
   m_Name: Spawner1
   m_EditorClassIdentifier: 
-  randomRotationAngle: 0
-  propagationAngle: 90
-  enemyNbrAtIntantiation: 3
+  randomRotationAngle: 25
+  propagationAngle: 120
+  enemyNbrAtIntantiation: 4
   secondBetweenTwoSpawn: 4
   enemyToSpawn: {fileID: 2465297916492338540, guid: 213c63ac1a927604f9c1f96f3bec87ef, type: 3}
   divisionFactor: 1
-  baseEnemiesSpeed: 3
+  baseEnemiesSpeed: 5

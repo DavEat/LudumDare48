@@ -9,6 +9,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] float m_height = 10;
 
     bool m_exploded = false;
+    public float repelForce = 5.0f;
 
     Vector3 m_velocity;
 
@@ -41,7 +42,10 @@ public class Grenade : MonoBehaviour
         foreach (Enemy e in EnemyManager.inst.enemiesScripts)
         {
             if ((e.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
+            {
                 e.SetDamage(Action.Damage_Grenade);
+                e.Repel(m_transform.position, repelForce);
+            }
         }
 
         Destroy();

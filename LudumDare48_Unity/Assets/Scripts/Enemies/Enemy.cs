@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float SpeedMultiplier = 3.0f;
     public float timeBeforeSplit = 2.0f;
     public float life = 10;
+    public float enemyMass = 1;
     public float targetDistance = 10;
     public float attackDamage = 2;
     public float startAttackDistance = 1.5f;
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
     private Vector3 tranformForward;
     private float lastTimeAttack;
     private float speed;
+    private bool repulse = false;
     public Vector3 position { get { return rb.position; } }
     public enum ActionState
     {
@@ -62,8 +64,8 @@ public class Enemy : MonoBehaviour
         }
         if (currentState == ActionState.GoingForward)
         {
-            rb.velocity = tranformForward * speed;
-            if(Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) < targetDistance * targetDistance)
+            rb.AddForce(tranformForward * speed);
+            if (Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) < targetDistance * targetDistance)
             {
                 currentState = ActionState.MovingToPlayer;
             }
@@ -72,7 +74,7 @@ public class Enemy : MonoBehaviour
         {
             rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
             tranformForward = enemyTransform.forward;
-            rb.velocity = tranformForward * speed;
+            rb.AddForce(tranformForward * speed);
             //if() player in AttackRange
             //1 : Lent, +de PV, Grosse attaque, CAC
             //2 : Vitesse moyenne, PV normaux, Dégats Normaux, à Distance
@@ -87,7 +89,7 @@ public class Enemy : MonoBehaviour
         {
             rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
             tranformForward = enemyTransform.forward;
-            rb.velocity = Vector3.zero;
+            rb.AddForce(tranformForward * speed);
             if (lastTimeAttack + attackCoolDown < Time.time)
             {
                 Attack();
@@ -124,6 +126,12 @@ public class Enemy : MonoBehaviour
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
+    }
+
+    public void Repel(Vector3 forceOrigin, float repelForce)
+    {
+        rb.AddForce((enemyTransform.position - forceOrigin).normalized * repelForce / enemyMass, ForceMode.Impulse);
+        repulse = true;
     }
 
     private void OnCollisionEnter(Collision collision)
