@@ -8,14 +8,17 @@ public class EnemyManager : Singleton<EnemyManager>
     public Enemy[] Enemies;
 
     public List<Enemy> enemiesScripts;
+    public List<Enemy> deathEnemiesScripts;
     void Start()
     {
         
     }
 
 
-    void Update()
+    void LateUpdate()
     {
-        
+        foreach (Enemy e in deathEnemiesScripts)
+            enemiesScripts.Remove(e);
+        deathEnemiesScripts.Clear();
     }
 }

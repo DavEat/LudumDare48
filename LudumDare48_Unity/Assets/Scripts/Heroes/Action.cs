@@ -7,11 +7,23 @@ public class Action : MonoBehaviour
 {
     bool m_shieldActive = false;
     public bool shieldActive { get { return m_shieldActive; } }
+    bool m_shieldAttack = false;
+
     bool m_firingBullets = false;
     bool m_prepareGrenade = false;
     bool m_firingGrenade = false;
 
+    bool m_spearRoundAttack = false;
+    bool m_spearPointyAttack = false;
+
     [SerializeField] Hero[] m_heroes = null;
+
+    public const float Damage_Bullet = 10;
+    public const float Damage_Grenade = 10;
+    public const float Radius_Grenade = 5;
+    public const float Damage_Spear = 10;
+    public const float Damage_Shield = 10;
+
 
     void Start()
     {
@@ -43,7 +55,6 @@ public class Action : MonoBehaviour
             foreach (Hero h in m_heroes)
                 h.SetDefaultPosition();
 
-            Debug.Log("a: " + m_firingGrenade);
             if (m_firingGrenade)
             {
                 m_firingGrenade = false;
@@ -55,6 +66,27 @@ public class Action : MonoBehaviour
 
             foreach (Hero h in m_heroes)
                 h.SetFireMachineGun(m_firingBullets && !m_prepareGrenade);
+
+            if (m_spearRoundAttack)
+            {
+                foreach (Hero h in m_heroes)
+                    h.SetSpearRound();
+                m_spearRoundAttack = false;
+            }
+
+            if (m_spearPointyAttack)
+            {
+                foreach (Hero h in m_heroes)
+                    h.SetSpearPointy();
+                m_spearPointyAttack = false;
+            }
+
+            if (m_shieldAttack)
+            {
+                foreach (Hero h in m_heroes)
+                    h.SetAttackShield();
+                m_shieldAttack = false;
+            }            
         }
     }
 
@@ -71,5 +103,17 @@ public class Action : MonoBehaviour
         if (m_prepareGrenade && context.canceled && !Movement.inst.Dashing && !shieldActive)
             m_firingGrenade = true;
         m_prepareGrenade = !context.canceled;
+    }
+    public void OnShieldAttack(InputAction.CallbackContext context)
+    {
+        m_shieldAttack = !context.canceled;
+    }
+    public void OnSpearRoundAttack(InputAction.CallbackContext context)
+    {
+        m_spearRoundAttack = !context.canceled;
+    }
+    public void OnSpearPointyAttack(InputAction.CallbackContext context)
+    {
+        m_spearPointyAttack = !context.canceled;
     }
 }
