@@ -18,4 +18,4 @@ MonoBehaviour:
   secondBetweenTwoSpawn: 4
   enemyToSpawn: {fileID: 2465297916492338540, guid: 213c63ac1a927604f9c1f96f3bec87ef, type: 3}
   divisionFactor: 1
-  baseEnemiesSpeed: 10
+  baseEnemiesSpeed: 3

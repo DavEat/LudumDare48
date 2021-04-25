@@ -1286,7 +1286,7 @@ Transform:
   - {fileID: 522815497}
   - {fileID: 1348435165}
   m_Father: {fileID: 1524973616208480543}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1929017895
 Animator:
@@ -1501,6 +1501,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 127002227994972477}
+  - {fileID: 4436527732974238277}
   - {fileID: 1929017894}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1560,11 +1561,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
-  currentSpeed: 3
-  timeBeforeSplit: 2
+  SpeedMultiplier: 2
+  timeBeforeSplit: 20
   life: 10
+  targetDistance: 12
+  attackDamage: 2
+  startAttackDistance: 10
+  stopAttackDistance: 20
+  rangeAttack: 1
+  rangeAttackTransform: {fileID: 4436527732974238277}
+  attackCoolDown: 1
   level: 2
+  animator: {fileID: 1929017895}
   currentState: 0
+--- !u!1 &3663464031495449134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4436527732974238277}
+  m_Layer: 0
+  m_Name: RangeAttackAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4436527732974238277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663464031495449134}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.011, y: 1.023, z: -0.198}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_Children: []
+  m_Father: {fileID: 1524973616208480543}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8757459934136138048
 GameObject:
   m_ObjectHideFlags: 0

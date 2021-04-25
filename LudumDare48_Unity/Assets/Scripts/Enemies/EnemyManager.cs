@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : Singleton<EnemyManager>
 {
 
+    public EnemyGrenade enemyGrenade;
     public Enemy[] Enemies;
 
     public List<Enemy> enemiesScripts;

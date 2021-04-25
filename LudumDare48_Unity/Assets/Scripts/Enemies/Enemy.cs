@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [HideInInspector]
     public EnemySpawner enemySpawner;
-    public float currentSpeed = 3.0f;
+    public float SpeedMultiplier = 3.0f;
     public float timeBeforeSplit = 2.0f;
     public float life = 10;
     public float targetDistance = 10;
@@ -14,13 +14,16 @@ public class Enemy : MonoBehaviour
     public float startAttackDistance = 1.5f;
     public float stopAttackDistance = 1.5f;
     public bool rangeAttack = false;
+    public Transform rangeAttackTransform;
     public float attackCoolDown = 1.0f;
 
     public int level = 1;
     private Rigidbody rb;
+    public Animator animator;
     private Transform enemyTransform;
     private Vector3 tranformForward;
     private float lastTimeAttack;
+    private float speed;
     public Vector3 position { get { return rb.position; } }
     public enum ActionState
     {
@@ -34,14 +37,14 @@ public class Enemy : MonoBehaviour
     {
         enemyTransform = transform;
         tranformForward = enemyTransform.forward;
-        currentSpeed = enemySpawner.spawnerPreset.baseEnemiesSpeed;
+        speed = enemySpawner.spawnerPreset.baseEnemiesSpeed * SpeedMultiplier;
         rb = GetComponent<Rigidbody>();
     }
 
 
     void FixedUpdate()
     {
-        timeBeforeSplit -= Time.deltaTime;
+        timeBeforeSplit -= Time.fixedDeltaTime;
         if  (timeBeforeSplit <= 0)
         {
             if (EnemyManager.inst.Enemies.Length > level)
@@ -59,7 +62,7 @@ public class Enemy : MonoBehaviour
         }
         if (currentState == ActionState.GoingForward)
         {
-            rb.velocity = tranformForward * currentSpeed;
+            rb.velocity = tranformForward * speed;
             if(Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) < targetDistance * targetDistance)
             {
                 currentState = ActionState.MovingToPlayer;
@@ -68,7 +71,8 @@ public class Enemy : MonoBehaviour
         else if (currentState == ActionState.MovingToPlayer)
         {
             rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
-            rb.velocity = tranformForward * currentSpeed;
+            tranformForward = enemyTransform.forward;
+            rb.velocity = tranformForward * speed;
             //if() player in AttackRange
             //1 : Lent, +de PV, Grosse attaque, CAC
             //2 : Vitesse moyenne, PV normaux, Dégats Normaux, à Distance
@@ -81,9 +85,13 @@ public class Enemy : MonoBehaviour
         }
         else if (currentState == ActionState.Attack)
         {
-            if(lastTimeAttack + attackCoolDown < Time.time)
+            rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
+            tranformForward = enemyTransform.forward;
+            rb.velocity = Vector3.zero;
+            if (lastTimeAttack + attackCoolDown < Time.time)
             {
                 Attack();
+                
             }
             if (Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) > stopAttackDistance * stopAttackDistance)
             {
@@ -93,7 +101,19 @@ public class Enemy : MonoBehaviour
     }
     public void Attack()
     {
-
+        lastTimeAttack = Time.time;
+        if (rangeAttack)
+        {
+            animator.SetTrigger("RangeAttack");
+            EnemyGrenade grenade = Instantiate(EnemyManager.inst.enemyGrenade, rangeAttackTransform.position, enemyTransform.rotation);
+            grenade.damage = attackDamage;
+            grenade.Init();
+        }
+        else
+        {
+            animator.SetTrigger("Attack");
+            Movement.inst.GetComponent<HeroesLife>().GetDamage(attackDamage);
+        }
     }
     public void SetDamage(float damage)
     {
@@ -111,23 +131,8 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             float angle = Mathf.Abs((Vector3.SignedAngle(tranformForward, collision.contacts[0].normal, Vector3.up) % 180) - 180.0f);
-            float WallAngle = Vector3.SignedAngle(Vector3.forward, collision.contacts[0].normal, Vector3.up);
-            float yAngleOfForward = Vector3.SignedAngle(Vector3.forward, tranformForward, Vector3.up);
-
-            transform.rotation = transform.rotation * Quaternion.Euler(0, 180 - 2 * angle, 0);
-            tranformForward = transform.forward;
-
-            //if (angle > 0)
-            //{
-            //    transform.rotation = transform.rotation * Quaternion.Euler(0,180 - 2* angle,0);
-            //    Debug.Log("EnemyForwardAngle : " + yAngleOfForward + " | WallAngle : " + WallAngle + " | ReflexionAngle : " + angle);
-            //
-            //}
-            //else
-            //{
-            //
-            //    Debug.Log("EnemyForwardAngle : " + yAngleOfForward + " | WallAngle : " + WallAngle + " | ReflexionAngle : " + angle);
-            //}
+            enemyTransform.rotation = enemyTransform.rotation * Quaternion.Euler(0, 180 - 2 * angle, 0);
+            tranformForward = enemyTransform.forward;
         }
     }
 }

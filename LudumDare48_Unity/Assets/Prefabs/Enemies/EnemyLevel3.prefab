@@ -1444,10 +1444,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 0}
-  currentSpeed: 3
-  timeBeforeSplit: 2
+  SpeedMultiplier: 2
+  timeBeforeSplit: 10
   life: 10
+  targetDistance: 10
+  attackDamage: 2
+  startAttackDistance: 5
+  stopAttackDistance: 20
+  rangeAttack: 0
+  rangeAttackTransform: {fileID: 0}
+  attackCoolDown: 1
   level: 3
+  animator: {fileID: 479239623}
   currentState: 0
 --- !u!1 &6236253902622689434
 GameObject:

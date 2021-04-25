@@ -1285,7 +1285,14 @@ MonoBehaviour:
   currentSpeed: 3
   timeBeforeSplit: 10
   life: 5
+  targetDistance: 10
+  attackDamage: 2
+  startAttackDistance: 5
+  stopAttackDistance: 20
+  rangeAttack: 0
+  attackCoolDown: 1
   level: 4
+  animator: {fileID: 781058213}
   currentState: 0
 --- !u!1 &3965141979907392226
 GameObject:
