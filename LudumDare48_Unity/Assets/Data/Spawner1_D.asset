@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomRotationAngle: 25
   propagationAngle: 180
-  enemyNbrAtIntantiation: 10
+  enemyNbrAtIntantiation: 5
   secondBetweenTwoSpawn: 0.8
   enemyToSpawn: {fileID: 2465297916492338540, guid: 213c63ac1a927604f9c1f96f3bec87ef, type: 3}
   divisionFactor: 2
