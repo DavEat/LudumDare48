@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EmissiveParticles
+  m_Name: RingParticle
   m_Shader: {fileID: -6465566751694194690, guid: 207b199c4dd680d4f9c61d255640b307, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_be4edc12739c49fcb50bc16162561f6c:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 993fa311a180e60498c236b9ca17ee04, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -140,7 +140,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_5bbb6fd7976541ea9880fd37f28a4eeb: {r: 31.626795, g: 31.626795, b: 31.626795, a: 1}
+    - Color_5bbb6fd7976541ea9880fd37f28a4eeb: {r: 2.3958445, g: 2.3958445, b: 2.3958445, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
