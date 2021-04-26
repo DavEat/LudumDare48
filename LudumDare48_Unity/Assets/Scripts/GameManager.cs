@@ -54,6 +54,12 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 0;
     }
 
+    public bool IsPaused()
+    {
+        return Time.timeScale == 0;
+    }
+
+
     public SO_Spawner GetSpawnerData()
     {
         return m_spawnersdata[m_spawnersdataIndex];

@@ -24,7 +24,7 @@ public class HeroesLife : MonoBehaviour
         if (m_lifePoints > 0)
         {
             m_lifeBar.UpdateLife(m_lifePoints / m_maxLifePoints);
-            Debug.LogFormat("Heroes get hurt: {0}", damage);
+            //Debug.LogFormat("Heroes get hurt: {0}", damage);
         }
         else
         {

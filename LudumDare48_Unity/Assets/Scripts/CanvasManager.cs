@@ -30,7 +30,7 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void Next(InputAction.CallbackContext context)
     {
-        if (context.started && m_target != -1)
+        if (m_target != -1 && context.started)
         {
             Debug.Log("next");
             if (m_target < m_screens.Length)

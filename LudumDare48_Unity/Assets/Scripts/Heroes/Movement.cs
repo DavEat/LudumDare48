@@ -197,7 +197,9 @@ public class Movement : Singleton<Movement>
     }
     public void OnDash(InputAction.CallbackContext context)
     {
-        m_shouldDash = context.started && ! m_dashing;
+        if (GameManager.inst.IsPaused()) return;
+
+        m_shouldDash = !context.canceled && ! m_dashing;
     }
     public void OnAttack(float offsetAngle)
     {

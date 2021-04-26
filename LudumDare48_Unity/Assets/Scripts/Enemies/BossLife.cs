@@ -29,13 +29,14 @@ public class BossLife : MonoBehaviour
         m_spawner = GetComponent<EnemySpawner>();
 
         GameManager.inst.nextLevel += ResetObj;
-        ResetObj();
 
         m_material = new Material(m_material);
         foreach (MeshRenderer renderer in m_meshRenderers)
         {
             renderer.sharedMaterial = m_material;
         }
+
+        ResetObj();        
     }
 
     public void SetDamage(float damage)
@@ -100,6 +101,6 @@ public class BossLife : MonoBehaviour
 
         m_lifeBar.UpdateLife(.66f);
 
-        m_material.SetFloat(propertyName, 0);
+        m_material.SetFloat(propertyName, 1);
     }
 }

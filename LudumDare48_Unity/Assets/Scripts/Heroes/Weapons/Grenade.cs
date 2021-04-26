@@ -45,7 +45,7 @@ public class Grenade : MonoBehaviour
         Debug.LogFormat("Grenade {0} explode at Y: {1}", name, m_transform.position.y);
         foreach (Enemy e in EnemyManager.inst.enemiesScripts)
         {
-            if ((e.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
+            if (e != null && (e.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
             {
                 e.SetDamage(Action.Damage_Grenade);
                 e.Repel(m_transform.position, repelForce);
