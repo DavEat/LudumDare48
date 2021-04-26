@@ -31,6 +31,8 @@ public class Movement : Singleton<Movement>
     Vector3 m_dashStartPoint = Vector3.zero;
     Vector3 m_dashDirection = Vector3.zero;
 
+    [SerializeField] GameObject m_dashPush = null;
+
     bool m_shouldLook = false;
     Vector2 m_lookDirection = Vector2.zero;
     [Header("Look")]
@@ -141,17 +143,19 @@ public class Movement : Singleton<Movement>
         {
             m_dashing = true;            
             m_dashStartPoint = m_transform.position;
-            m_dashDirection = m_directionArrow.forward;
+            m_dashDirection = m_directionArrow.up;
             m_dashTime = Time.time + m_dashDuration;
+            m_dashPush.SetActive(true);
         }
     }
     void Dash()
     {
-        if (m_dashTime < Time.time)
+        if (m_dashTime > Time.time)
             m_rb.velocity = m_dashDirection * m_dashSpeed;
         else
         {
             m_dashing = false;
+            m_dashPush.SetActive(false);
             m_nextDashTime = Time.time + m_dashCoolDown;
         }
     }

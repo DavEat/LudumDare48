@@ -1554,12 +1554,12 @@ MonoBehaviour:
   enemyMass: 1
   targetDistance: 12
   attackDamage: 2
-  startAttackDistance: 10
-  stopAttackDistance: 16
+  startAttackDistance: 9
+  stopAttackDistance: 12
   rangeAttack: 1
   rangeAttackTransform: {fileID: 4436527732974238277}
   attackCoolDown: 5
-  m_passiveTrowardPlayer: 1
+  m_behavioursToPlayer: 0
   level: 2
   animator: {fileID: 1929017895}
   currentState: 0
