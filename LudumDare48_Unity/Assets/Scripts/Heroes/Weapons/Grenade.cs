@@ -9,6 +9,8 @@ public class Grenade : MonoBehaviour
     [SerializeField] float m_height = 10;
     [SerializeField] float m_speed = 3;
 
+    [SerializeField] GameObject m_ExplosionVFX;
+    [SerializeField] float m_VFXLifeTime = 3.0f;
 
     bool m_exploded = false;
     public float repelForce = 20.0f;
@@ -54,7 +56,9 @@ public class Grenade : MonoBehaviour
     }
     void Destroy()
     {
+        GameObject vfx = Instantiate(m_ExplosionVFX, m_transform.position, m_transform.rotation);
+        Destroy(vfx, m_VFXLifeTime);
         gameObject.SetActive(false);
-        Destroy(gameObject);
+        Destroy(gameObject, m_VFXLifeTime + 0.5f);
     }
 }
