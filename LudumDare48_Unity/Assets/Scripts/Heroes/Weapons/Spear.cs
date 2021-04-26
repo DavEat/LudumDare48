@@ -9,6 +9,12 @@ public class Spear : Singleton<Spear>
 
     [SerializeField] float m_repelForce = 10;
 
+    [SerializeField] Transform m_VFXAnchor = null;
+    [SerializeField] GameObject m_SpearVFXPointy;
+    [SerializeField] GameObject m_SpearVFXRound;
+    [SerializeField] float m_VFXPointyLifeTime = 2.0f;
+    [SerializeField] float m_VFXRoundLifeTime = 2.0f;
+
     [SerializeField] Transform m_pivot = null;
 
     float m_pointyAttackTime = -1;
@@ -35,6 +41,9 @@ public class Spear : Singleton<Spear>
     {
         if (CanPointyAttack())
         {
+            GameObject vfx = Instantiate(m_SpearVFXPointy, m_VFXAnchor.position, m_VFXAnchor.rotation);
+            vfx.transform.parent = m_VFXAnchor;
+            Destroy(vfx, m_VFXPointyLifeTime);
             m_damage = Action.Damage_Spear;
             m_pointyAttackTime = Time.time + m_pointyAttackCoolDown;
             m_anim.SetTrigger("PointyAttack");
@@ -48,6 +57,10 @@ public class Spear : Singleton<Spear>
     {
         if (CanRoundAttack())
         {
+
+            GameObject vfx = Instantiate(m_SpearVFXRound, m_VFXAnchor.position, m_VFXAnchor.rotation);
+            vfx.transform.parent = m_VFXAnchor;
+            Destroy(vfx, m_VFXRoundLifeTime);
             m_damage = Action.Damage_Round_Spear;
             m_roundAttackTime = Time.time + m_roundAttackCoolDown;
             m_anim.SetTrigger("RoundAttack");

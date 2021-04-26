@@ -31,6 +31,10 @@ public class Movement : Singleton<Movement>
     Vector3 m_dashStartPoint = Vector3.zero;
     Vector3 m_dashDirection = Vector3.zero;
 
+    [SerializeField] Transform[] m_DashVFXAnchor = null;
+    [SerializeField] GameObject m_DashVFX;
+    [SerializeField] float m_DashVFXLifeTime = 2.0f;
+
     [SerializeField] GameObject m_dashPush = null;
 
     bool m_shouldLook = false;
@@ -141,6 +145,12 @@ public class Movement : Singleton<Movement>
     {
         if (m_nextDashTime < Time.time)
         {
+            for (int i = 0; i < m_DashVFXAnchor.Length; i++)
+            {
+                GameObject vfx = Instantiate(m_DashVFX, m_DashVFXAnchor[i].position, m_DashVFXAnchor[i].rotation);
+                vfx.transform.parent = m_DashVFXAnchor[i];
+                Destroy(vfx, m_DashVFXLifeTime);
+            }
             m_dashing = true;            
             m_dashStartPoint = m_transform.position;
             m_dashDirection = m_directionArrow.forward;
