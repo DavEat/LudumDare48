@@ -144,11 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546e232af3159cf4ba8155e4f045aea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_spear: {fileID: 38958630}
   m_pointyAttackCoolDown: 1
   m_roundAttackCoolDown: 2
+  m_repelForce: 10
   m_pivot: {fileID: 10968160}
-  m_damage: 10
 --- !u!1 &180423123
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +532,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 20017aa714853b746855ea33da6308a5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.75686276, g: 0.5102041, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -746,7 +745,7 @@ GameObject:
   - component: {fileID: 832682061}
   - component: {fileID: 697935280650621073}
   - component: {fileID: 2347372206779890713}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ZonePointy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &878137005
 Transform:
   m_ObjectHideFlags: 0
@@ -913,7 +912,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9addb437bbc30544ab14ccb121514aa2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.75686276, g: 0.5137255, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1491,7 +1490,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 882a27ddc4bcea842bb496cf1a66d68c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.75686276, g: 0.5137255, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1501,6 +1500,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1933103527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933103528}
+  - component: {fileID: 1933103529}
+  - component: {fileID: 1933103530}
+  m_Layer: 0
+  m_Name: dashPush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1933103528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933103527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3139906319248226627}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1933103529
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933103527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.6
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1933103530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933103527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1799f19e9cd31044a3d05834a7dfdf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_repelForce: 5
 --- !u!1 &1973338020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,7 +2293,7 @@ GameObject:
   - component: {fileID: 2139173546}
   m_Layer: 0
   m_Name: H_Shield
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2346,6 +2403,7 @@ Transform:
   - {fileID: 3139906319624251620}
   - {fileID: 3139906319849499255}
   - {fileID: 1847826060}
+  - {fileID: 1933103528}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2377,7 +2435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: be31ff78d75760f43882bd9beeada9a7, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 942ad30d45ac0cc45b64f1cc4801ef28, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -2599,8 +2657,9 @@ MonoBehaviour:
   m_breakSpeed: 0.9
   m_stopSpeed: 0.01
   m_dashSpeed: 15
-  m_dashLength: 10
-  m_dashCoolDown: 1
+  m_dashDuration: 0.3
+  m_dashCoolDown: 0.2
+  m_dashPush: {fileID: 1933103527}
   m_moveLookSpeed: 1.5
   m_shieldLookSpeed: 3
   m_directionArrow: {fileID: 1847826060}
@@ -2632,6 +2691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cfa01ae09f2d44cb0d25c49b54e435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_lifePoints: 0
+  m_maxLifePoints: 100
 --- !u!1 &3139906319624251623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,7 +2707,7 @@ GameObject:
   - component: {fileID: 377543330}
   m_Layer: 0
   m_Name: H_Halbard
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2735,7 +2796,7 @@ GameObject:
   - component: {fileID: 6444580028196455885}
   - component: {fileID: 481743573}
   - component: {fileID: 745169480}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2816,8 +2877,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 6}
+  m_Center: {x: 0, y: 0, z: 3}
 --- !u!95 &6444580028196455885
 Animator:
   serializedVersion: 3
@@ -2856,6 +2917,7 @@ MonoBehaviour:
   m_pivot: {fileID: 3085650516488140481}
   m_collider: {fileID: 3139906319741892712}
   m_shieldAttackCoolDown: 1
+  repelForce: 10
 --- !u!54 &745169480
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2886,7 +2948,7 @@ GameObject:
   - component: {fileID: 358378831}
   m_Layer: 0
   m_Name: H_MachineGun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3493,7 +3555,8 @@ MonoBehaviour:
   m_defenceAngles: {x: 0, y: 0, z: 0}
   m_pivot: {fileID: 3085650516488140481}
   m_collider: {fileID: 3139906319741892712}
-  m_shieldAttackCoolDown: 1
+  m_shieldAttackCoolDown: 0.5
+  repelForce: 10
 --- !u!1 &5351215271649462312
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,10 @@ public class SpearCollision : MonoBehaviour
             Debug.LogFormat("Spear touch enemy: {0}", other.name, other.gameObject);
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
-                e.SetDamage(Action.Damage_Spear);
+            {
+                e.SetDamage(Spear.inst.damage, this);
+                e.Repel(Spear.inst.origin, Spear.inst.repelForce);
+            }
         }
     }
 }

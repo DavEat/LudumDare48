@@ -12,4 +12,13 @@ public class SO_Spawner : ScriptableObject
     public Enemy enemyToSpawn;
     public int divisionFactor = 2;
     public float baseEnemiesSpeed = 1;
+    public float baseDistanceFromBoss = 4;
+
+    public enum BehavioursToPlayer { agressive, passive, attackOnSight };
+    public BehavioursToPlayer[] behaviours = { BehavioursToPlayer.attackOnSight, BehavioursToPlayer.attackOnSight, BehavioursToPlayer.attackOnSight, BehavioursToPlayer.attackOnSight };
+
+    public BehavioursToPlayer Behaviour(int level)
+    {
+        return level < behaviours.Length ? behaviours[level] : BehavioursToPlayer.attackOnSight;
+    }
 }

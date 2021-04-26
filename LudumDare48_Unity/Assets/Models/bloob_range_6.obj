@@ -4,7 +4,7 @@
 o 
 
 # material
-mtllib bloob_range_2.mtl
+mtllib bloob_range_6.mtl
 usemtl palette
 
 # normals
@@ -19,7 +19,7 @@ vn 0 1 0
 vt 0.845703 0.5
 vt 0.849609 0.5
 vt 0.853516 0.5
-vt 0.904297 0.5
+vt 0.876953 0.5
 
 # verts
 v -1 0 0.3

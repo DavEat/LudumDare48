@@ -12,11 +12,10 @@ public class EnemyGrenade : MonoBehaviour
     [HideInInspector]
     public float damage;
     public float grenadeRadius;
-    public float distance;
 
     Vector3 m_velocity;
 
-    public void Init()
+    public void Init(float distance)
     {
         m_transform = GetComponent<Transform>();
         m_velocity = new Vector3(0, m_height - m_transform.position.y, distance * m_height * .1f);

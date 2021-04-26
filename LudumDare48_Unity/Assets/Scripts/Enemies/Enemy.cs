@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [HideInInspector]
-    public EnemySpawner enemySpawner;
+    
+    [SerializeField] EnemySpawner enemySpawner;
     public float SpeedMultiplier = 3.0f;
     public float timeBeforeSplit = 2.0f;
     public float life = 10;
@@ -18,14 +18,17 @@ public class Enemy : MonoBehaviour
     public Transform rangeAttackTransform;
     public float attackCoolDown = 1.0f;
 
+    public SO_Spawner.BehavioursToPlayer m_behavioursToPlayer;
+    public bool m_attacking = false;
+
     public int level = 1;
     private Rigidbody rb;
     public Animator animator;
-    private Transform enemyTransform;
+    private Transform m_transform;
     private Vector3 tranformForward;
     private float lastTimeAttack;
-    private float speed;
-    private bool repulse = false;
+    private float speed = 5;
+    //private bool repulse = false;
     public Vector3 position { get { return rb.position; } }
     public enum ActionState
     {
@@ -35,14 +38,30 @@ public class Enemy : MonoBehaviour
         Death
     }
     public ActionState currentState = ActionState.GoingForward;
-    public void Init()
+    public void Init(EnemySpawner spawner, SO_Spawner.BehavioursToPlayer behaviour)
     {
-        enemyTransform = transform;
-        tranformForward = enemyTransform.forward;
-        speed = enemySpawner.spawnerPreset.baseEnemiesSpeed * SpeedMultiplier;
+        m_transform = transform;
+        tranformForward = m_transform.forward;
         rb = GetComponent<Rigidbody>();
+        
+        enemySpawner = spawner;
+        if (enemySpawner != null)
+        {
+            speed = enemySpawner.spawnerPreset.baseEnemiesSpeed * SpeedMultiplier;
+            if (behaviour == SO_Spawner.BehavioursToPlayer.agressive)
+            {
+                currentState = ActionState.MovingToPlayer;
+                m_behavioursToPlayer = behaviour;
+            }
+            else m_behavioursToPlayer = enemySpawner.spawnerPreset.Behaviour(level - 1);
+        }
     }
 
+    void Start()
+    {
+        if (m_transform == null)
+            Init(enemySpawner, SO_Spawner.BehavioursToPlayer.attackOnSight);
+    }
 
     void FixedUpdate()
     {
@@ -53,10 +72,9 @@ public class Enemy : MonoBehaviour
             {
                 for (int i = 0; i < enemySpawner.spawnerPreset.divisionFactor; i++)
                 {
-                    Enemy enemyChild = Instantiate(EnemyManager.inst.Enemies[level], enemyTransform.position + enemyTransform.right * i * enemyTransform.localScale.x / 2.0f - enemyTransform.right * enemyTransform.localScale.x / (2.0f * enemySpawner.spawnerPreset.divisionFactor), enemyTransform.rotation * Quaternion.Euler(0, (enemySpawner.spawnerPreset.propagationAngle / enemySpawner.spawnerPreset.enemyNbrAtIntantiation) / (enemySpawner.spawnerPreset.divisionFactor * level) * (i - (enemySpawner.spawnerPreset.divisionFactor - 1) / 2.0f), 0));
+                    Enemy enemyChild = Instantiate(EnemyManager.inst.Enemies[level], m_transform.position + m_transform.right * i * m_transform.localScale.x / 2.0f - m_transform.right * m_transform.localScale.x / (2.0f * enemySpawner.spawnerPreset.divisionFactor), m_transform.rotation * Quaternion.Euler(0, (enemySpawner.spawnerPreset.propagationAngle / enemySpawner.spawnerPreset.enemyNbrAtIntantiation) / (enemySpawner.spawnerPreset.divisionFactor * level) * (i - (enemySpawner.spawnerPreset.divisionFactor - 1) / 2.0f), 0));
                     EnemyManager.inst.enemiesScripts.Add(enemyChild);
-                    enemyChild.enemySpawner = enemySpawner;
-                    enemyChild.Init();
+                    enemyChild.Init(enemySpawner, m_behavioursToPlayer);
                 }
             }
             EnemyManager.inst.enemiesScripts.Remove(this);
@@ -65,37 +83,41 @@ public class Enemy : MonoBehaviour
         if (currentState == ActionState.GoingForward)
         {
             rb.AddForce(tranformForward * speed);
-            if (Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) < targetDistance * targetDistance)
+            if (m_behavioursToPlayer != SO_Spawner.BehavioursToPlayer.passive && Vector3.SqrMagnitude(Movement.inst.Position - m_transform.position) < targetDistance * targetDistance)
             {
                 currentState = ActionState.MovingToPlayer;
+                m_behavioursToPlayer = SO_Spawner.BehavioursToPlayer.agressive;
             }
         }
         else if (currentState == ActionState.MovingToPlayer)
         {
-            rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
-            tranformForward = enemyTransform.forward;
+            m_transform.rotation = Quaternion.LookRotation(Movement.inst.Position - m_transform.position);
+            tranformForward = m_transform.forward;
             rb.AddForce(tranformForward * speed);
             //if() player in AttackRange
             //1 : Lent, +de PV, Grosse attaque, CAC
             //2 : Vitesse moyenne, PV normaux, Dégats Normaux, à Distance
             //3 : Vitesse moyenne, PV normaux, Dégats Normaux, CAC mid renge
             //4 : Rapide, Un peu moins de PV, Peu de dégats, CAC
-            if (Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) < startAttackDistance * startAttackDistance)
+            if (Vector3.SqrMagnitude(Movement.inst.Position - m_transform.position) < startAttackDistance * startAttackDistance)
             {
                 currentState = ActionState.Attack;
             }
         }
         else if (currentState == ActionState.Attack)
         {
-            rb.rotation = Quaternion.LookRotation(Movement.inst.Position - enemyTransform.position);
-            tranformForward = enemyTransform.forward;
-            rb.AddForce(tranformForward * speed);
-            if (lastTimeAttack + attackCoolDown < Time.time)
+            if (!m_attacking)
+            {
+                Vector3 target = rangeAttack ? Movement.inst.PositionAndVelocity : Movement.inst.Position;
+                m_transform.rotation = Quaternion.LookRotation(target - m_transform.position);
+                tranformForward = m_transform.forward;
+            }
+            //rb.AddForce(tranformForward * speed);
+            if (lastTimeAttack < Time.time)
             {
                 Attack();
-                
             }
-            if (Vector3.SqrMagnitude(Movement.inst.Position - enemyTransform.position) > stopAttackDistance * stopAttackDistance)
+            if (Vector3.SqrMagnitude(Movement.inst.Position - m_transform.position) > stopAttackDistance * stopAttackDistance)
             {
                 currentState = ActionState.MovingToPlayer;
             }
@@ -103,21 +125,28 @@ public class Enemy : MonoBehaviour
     }
     public void Attack()
     {
-        lastTimeAttack = Time.time;
+        lastTimeAttack = Time.time + attackCoolDown;
         if (rangeAttack)
         {
             animator.SetTrigger("RangeAttack");
-            EnemyGrenade grenade = Instantiate(EnemyManager.inst.enemyGrenade, rangeAttackTransform.position, enemyTransform.rotation);
-            grenade.damage = attackDamage;
-            grenade.Init();
         }
         else
         {
-            animator.SetTrigger("Attack");
-            Movement.inst.GetComponent<HeroesLife>().GetDamage(attackDamage);
+            m_attacking = true;
+            animator.SetTrigger("Attack");            
         }
     }
-    public void SetDamage(float damage)
+    public void Shot()
+    {
+        EnemyGrenade grenade = Instantiate(EnemyManager.inst.enemyGrenade, rangeAttackTransform.position, m_transform.rotation);
+        grenade.damage = attackDamage;
+        grenade.Init((rangeAttackTransform.position - Movement.inst.PositionAndVelocity).magnitude);
+    }
+    public void EndAttack()
+    {
+        m_attacking = false;
+    }
+    public void SetDamage(float damage, MonoBehaviour attackBy)
     {
         life -= damage;
         if(life <= 0)
@@ -126,12 +155,15 @@ public class Enemy : MonoBehaviour
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
+
+        if (m_behavioursToPlayer == SO_Spawner.BehavioursToPlayer.passive)
+            m_behavioursToPlayer = SO_Spawner.BehavioursToPlayer.agressive;
     }
 
     public void Repel(Vector3 forceOrigin, float repelForce)
     {
-        rb.AddForce((enemyTransform.position - forceOrigin).normalized * repelForce / enemyMass, ForceMode.Impulse);
-        repulse = true;
+        rb.AddForce((m_transform.position - forceOrigin).normalized * repelForce / enemyMass, ForceMode.Impulse);
+        //repulse = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -139,8 +171,8 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             float angle = Mathf.Abs((Vector3.SignedAngle(tranformForward, collision.contacts[0].normal, Vector3.up) % 180) - 180.0f);
-            enemyTransform.rotation = enemyTransform.rotation * Quaternion.Euler(0, 180 - 2 * angle, 0);
-            tranformForward = enemyTransform.forward;
+            m_transform.rotation = m_transform.rotation * Quaternion.Euler(0, 180 - 2 * angle, 0);
+            tranformForward = m_transform.forward;
         }
     }
 }
