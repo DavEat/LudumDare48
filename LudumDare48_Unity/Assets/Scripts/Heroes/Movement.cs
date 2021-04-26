@@ -143,7 +143,7 @@ public class Movement : Singleton<Movement>
         {
             m_dashing = true;            
             m_dashStartPoint = m_transform.position;
-            m_dashDirection = m_directionArrow.up;
+            m_dashDirection = m_directionArrow.forward;
             m_dashTime = Time.time + m_dashDuration;
             m_dashPush.SetActive(true);
         }
