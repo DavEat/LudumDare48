@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     public float attackCoolDown = 1.0f;
 
     public SO_Spawner.BehavioursToPlayer m_behavioursToPlayer;
+    public bool m_attacking = false;
 
     public int level = 1;
     private Rigidbody rb;
@@ -105,9 +106,12 @@ public class Enemy : MonoBehaviour
         }
         else if (currentState == ActionState.Attack)
         {
-            Vector3 target = rangeAttack ? Movement.inst.PositionAndVelocity : Movement.inst.Position;
-            m_transform.rotation = Quaternion.LookRotation(target - m_transform.position);
-            tranformForward = m_transform.forward;
+            if (!m_attacking)
+            {
+                Vector3 target = rangeAttack ? Movement.inst.PositionAndVelocity : Movement.inst.Position;
+                m_transform.rotation = Quaternion.LookRotation(target - m_transform.position);
+                tranformForward = m_transform.forward;
+            }
             //rb.AddForce(tranformForward * speed);
             if (lastTimeAttack < Time.time)
             {
@@ -125,15 +129,23 @@ public class Enemy : MonoBehaviour
         if (rangeAttack)
         {
             animator.SetTrigger("RangeAttack");
-            EnemyGrenade grenade = Instantiate(EnemyManager.inst.enemyGrenade, rangeAttackTransform.position, m_transform.rotation);
-            grenade.damage = attackDamage;
-            grenade.Init();
         }
         else
         {
+            m_attacking = true;
             animator.SetTrigger("Attack");
             Movement.inst.GetComponent<HeroesLife>().GetDamage(attackDamage);
         }
+    }
+    public void Shot()
+    {
+        EnemyGrenade grenade = Instantiate(EnemyManager.inst.enemyGrenade, rangeAttackTransform.position, m_transform.rotation);
+        grenade.damage = attackDamage;
+        grenade.Init((rangeAttackTransform.position - Movement.inst.PositionAndVelocity).magnitude);
+    }
+    public void EndAttack()
+    {
+        m_attacking = false;
     }
     public void SetDamage(float damage, MonoBehaviour attackBy)
     {
