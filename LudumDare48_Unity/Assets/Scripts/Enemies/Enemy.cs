@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     public SO_Spawner.BehavioursToPlayer m_behavioursToPlayer;
     public bool m_attacking = false;
 
+    [SerializeField] Collider[] m_colliders;
+
     public int level = 1;
     private Rigidbody rb;
     public Animator animator;
@@ -152,8 +154,12 @@ public class Enemy : MonoBehaviour
         if(life <= 0)
         {
             EnemyManager.inst.deathEnemiesScripts.Add(this);
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            animator.SetTrigger("Death");
+            //gameObject.SetActive(false);
+            this.enabled = false;
+            foreach (Collider c in m_colliders)
+                c.enabled = false;
+            Destroy(gameObject, 1.5f);
         }
 
         if (m_behavioursToPlayer == SO_Spawner.BehavioursToPlayer.passive)
