@@ -133,8 +133,7 @@ public class Enemy : MonoBehaviour
         else
         {
             m_attacking = true;
-            animator.SetTrigger("Attack");
-            Movement.inst.GetComponent<HeroesLife>().GetDamage(attackDamage);
+            animator.SetTrigger("Attack");            
         }
     }
     public void Shot()

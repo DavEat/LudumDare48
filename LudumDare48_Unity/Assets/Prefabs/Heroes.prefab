@@ -2293,7 +2293,7 @@ GameObject:
   - component: {fileID: 2139173546}
   m_Layer: 0
   m_Name: H_Shield
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2691,6 +2691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cfa01ae09f2d44cb0d25c49b54e435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_lifePoints: 0
+  m_maxLifePoints: 100
 --- !u!1 &3139906319624251623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,7 +2707,7 @@ GameObject:
   - component: {fileID: 377543330}
   m_Layer: 0
   m_Name: H_Halbard
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2946,7 +2948,7 @@ GameObject:
   - component: {fileID: 358378831}
   m_Layer: 0
   m_Name: H_MachineGun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
