@@ -10,11 +10,13 @@ public class HeroesLife : MonoBehaviour
     [SerializeField] LifeBar m_lifeBar;
     void Start()
     {
+        GameManager.inst.gameOver += ResetObj;
         ResetObj();
     }
     public void ResetObj()
     {
         m_lifePoints = m_maxLifePoints;
+        m_lifeBar.UpdateLife(m_lifePoints / m_maxLifePoints);
     }
     public void GetDamage(float damage)
     {

@@ -13,7 +13,7 @@ public class LifeBar : MonoBehaviour
 
     Vector3 m_defaultAngle;
 
-    void Start()
+    void Awake()
     {
         m_transform = GetComponent<Transform>();
         m_image = GetComponent<Image>();
@@ -30,6 +30,7 @@ public class LifeBar : MonoBehaviour
     {
         m_image.fillAmount = percent;
         m_image.color = gradient.Evaluate(1 - percent);
-        m_image_arrow.color = m_image.color;
+        if (m_image_arrow != null)
+            m_image_arrow.color = m_image.color;
     }
 }

@@ -12,9 +12,15 @@ public class SpearCollision : MonoBehaviour
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
             {
-                e.SetDamage(Spear.inst.damage, this);
+                e.SetDamage(Spear.inst.damage);
                 e.Repel(Spear.inst.origin, Spear.inst.repelForce);
             }
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            BossLife e = other.GetComponent<BossLife>();
+            if (e != null)
+                e.SetDamage(Spear.inst.damage);
         }
     }
 }

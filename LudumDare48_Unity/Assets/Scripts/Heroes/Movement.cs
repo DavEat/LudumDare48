@@ -67,6 +67,13 @@ public class Movement : Singleton<Movement>
         m_transform = GetComponent<Transform>();
         m_rb = GetComponent<Rigidbody>();
         m_action = GetComponent<Action>();
+
+        GameManager.inst.gameOver += ResetObj;
+    }
+
+    void ResetObj()
+    {
+        m_transform.position = Vector3.zero;
     }
 
     void FixedUpdate()
@@ -190,7 +197,7 @@ public class Movement : Singleton<Movement>
     }
     public void OnDash(InputAction.CallbackContext context)
     {
-        m_shouldDash = !context.canceled && ! m_dashing;
+        m_shouldDash = context.started && ! m_dashing;
     }
     public void OnAttack(float offsetAngle)
     {

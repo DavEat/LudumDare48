@@ -25,12 +25,18 @@ public class Bullet : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-            Debug.LogFormat("Bullet {0} touched Enemy {1}", name, other.name);
         if (other.CompareTag("Enemy"))
         {
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
-                e.SetDamage(Action.Damage_Bullet, null);
+                e.SetDamage(Action.Damage_Bullet);
+            Destroy();
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            BossLife e = other.GetComponent<BossLife>();
+            if (e != null)
+                e.SetDamage(Action.Damage_Bullet);
             Destroy();
         }
     }

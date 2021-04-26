@@ -47,11 +47,17 @@ public class Grenade : MonoBehaviour
         {
             if ((e.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
             {
-                e.SetDamage(Action.Damage_Grenade, null);
+                e.SetDamage(Action.Damage_Grenade);
                 e.Repel(m_transform.position, repelForce);
             }
         }
-
+        foreach (BossLife b in EnemyManager.inst.boss)
+        {
+            if ((b.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
+            {
+                b.SetDamage(Action.Damage_Grenade);
+            }
+        }
         Destroy();
     }
     void Destroy()

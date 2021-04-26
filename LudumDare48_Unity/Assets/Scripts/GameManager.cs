@@ -5,24 +5,57 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool startFloorFall = true;
-
     public delegate void FloorFall();
     public FloorFall floorFall;
 
+    public delegate void GameOverEvent();
+    public GameOverEvent gameOver;
+    public GameOverEvent nextLevel;
 
+    [SerializeField] SO_Spawner[] m_spawnersdata;
+    int m_spawnersdataIndex = 0;
+
+    public bool frontSpawner = false;
+
+    public void NextLevel()
+    {
+        Debug.LogFormat("NextLevel");
+
+        frontSpawner = !frontSpawner;
+
+        if (++m_spawnersdataIndex >= m_spawnersdata.Length)
+            m_spawnersdataIndex = m_spawnersdata.Length - 1;
+
+        nextLevel.Invoke();
+        floorFall.Invoke();
+    }
     public void GameOver()
     {
         Debug.LogFormat("GameOver");
-        SceneManager.LoadScene(0);
+
+        frontSpawner = false;
+        m_spawnersdataIndex = 0;
+
+        nextLevel.Invoke();
+        gameOver.Invoke();
     }
 
-    public void Update()
+    void Start()
     {
-        if (startFloorFall && floorFall != null)
-        {
-            startFloorFall = false;
-            floorFall.Invoke();
-        }
+        PauseGame();
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public SO_Spawner GetSpawnerData()
+    {
+        return m_spawnersdata[m_spawnersdataIndex];
     }
 }

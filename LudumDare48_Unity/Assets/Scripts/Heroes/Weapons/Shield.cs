@@ -73,9 +73,15 @@ public class Shield : MonoBehaviour
             if (e != null)
             {
                 if (!m_shieldRaised)
-                    e.SetDamage(Action.Damage_Shield, this);
+                    e.SetDamage(Action.Damage_Shield);
                 e.Repel(m_transform.position, repelForce);
             }
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            BossLife e = other.GetComponent<BossLife>();
+            if (e != null)
+                e.SetDamage(Action.Damage_Shield);
         }
     }
 }

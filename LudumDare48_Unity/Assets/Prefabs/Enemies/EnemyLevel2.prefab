@@ -1593,6 +1593,33 @@ MonoBehaviour:
   m_colliders:
   - {fileID: 4319062699661432771}
   - {fileID: 8852051728972254223}
+  m_material: {fileID: 2100000, guid: fea052bd23cd51447a8a26194c6bf239, type: 2}
+  m_meshRenderers:
+  - {fileID: 3095541489944717250}
+  - {fileID: 1887682660}
+  - {fileID: 1987614765}
+  - {fileID: 448168990}
+  - {fileID: 1127156333}
+  - {fileID: 1386413141}
+  - {fileID: 392621883}
+  - {fileID: 956204556}
+  - {fileID: 756031491}
+  - {fileID: 1678719294}
+  - {fileID: 1287610748}
+  - {fileID: 923636220}
+  - {fileID: 1342443407}
+  - {fileID: 2021199327}
+  - {fileID: 1915648526}
+  - {fileID: 59543830}
+  - {fileID: 500590346}
+  - {fileID: 1614325473875967313}
+  - {fileID: 2862075374391488831}
+  - {fileID: 3430809526615935469}
+  - {fileID: 2072747582892049660}
+  - {fileID: 303019772955869801}
+  - {fileID: 3548511523765170062}
+  - {fileID: 6791449596368603563}
+  - {fileID: 5218004434791017250}
   level: 2
   animator: {fileID: 1929017895}
   currentState: 0

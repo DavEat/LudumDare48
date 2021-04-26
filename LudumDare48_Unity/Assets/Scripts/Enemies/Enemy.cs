@@ -23,6 +23,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] Collider[] m_colliders;
 
+    [SerializeField] Material m_material;
+    [SerializeField] MeshRenderer[] m_meshRenderers;
+    string propertyName = "_Emmission";
+
     public int level = 1;
     private Rigidbody rb;
     public Animator animator;
@@ -56,6 +60,12 @@ public class Enemy : MonoBehaviour
                 m_behavioursToPlayer = behaviour;
             }
             else m_behavioursToPlayer = enemySpawner.spawnerPreset.Behaviour(level - 1);
+        }
+
+        m_material = new Material(m_material);
+        foreach (MeshRenderer renderer in m_meshRenderers)
+        {
+            renderer.sharedMaterial = m_material;
         }
     }
 
@@ -108,7 +118,7 @@ public class Enemy : MonoBehaviour
         }
         else if (currentState == ActionState.Attack)
         {
-            if (!m_attacking)
+            if (!m_attacking && !rangeAttack)
             {
                 Vector3 target = rangeAttack ? Movement.inst.PositionAndVelocity : Movement.inst.Position;
                 m_transform.rotation = Quaternion.LookRotation(target - m_transform.position);
@@ -134,9 +144,10 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            m_attacking = true;
             animator.SetTrigger("Attack");            
         }
+        m_attacking = true;
+        m_material.SetFloat(propertyName, 1);
     }
     public void Shot()
     {
@@ -147,8 +158,9 @@ public class Enemy : MonoBehaviour
     public void EndAttack()
     {
         m_attacking = false;
+        m_material.SetFloat(propertyName, 0);
     }
-    public void SetDamage(float damage, MonoBehaviour attackBy)
+    public void SetDamage(float damage)
     {
         life -= damage;
         if(life <= 0)
@@ -164,8 +176,16 @@ public class Enemy : MonoBehaviour
 
         if (m_behavioursToPlayer == SO_Spawner.BehavioursToPlayer.passive)
             m_behavioursToPlayer = SO_Spawner.BehavioursToPlayer.agressive;
+
+        StartCoroutine(MaterialDelay(.5f, 2));
     }
 
+    IEnumerator MaterialDelay(float delay, int step)
+    {
+        m_material.SetFloat(propertyName, step);
+        yield return new WaitForSeconds(delay);
+        m_material.SetFloat(propertyName, m_attacking ? 1 : 0);
+    }
     public void Repel(Vector3 forceOrigin, float repelForce)
     {
         rb.AddForce((m_transform.position - forceOrigin).normalized * repelForce / enemyMass, ForceMode.Impulse);

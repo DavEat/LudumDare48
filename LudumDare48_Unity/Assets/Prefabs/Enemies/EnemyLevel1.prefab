@@ -1466,6 +1466,33 @@ MonoBehaviour:
   m_colliders:
   - {fileID: 8014986653458789689}
   - {fileID: 8620366704566626870}
+  m_material: {fileID: 2100000, guid: fea052bd23cd51447a8a26194c6bf239, type: 2}
+  m_meshRenderers:
+  - {fileID: 6230318228182014588}
+  - {fileID: 600148810}
+  - {fileID: 2138050289}
+  - {fileID: 2131253703}
+  - {fileID: 162943210}
+  - {fileID: 836334480}
+  - {fileID: 567759414}
+  - {fileID: 1204756548}
+  - {fileID: 1188474635}
+  - {fileID: 476665579}
+  - {fileID: 1846084841}
+  - {fileID: 1921768007}
+  - {fileID: 6076004542624212561}
+  - {fileID: 1952641884184983350}
+  - {fileID: 6698981934418902138}
+  - {fileID: 8046481548390755644}
+  - {fileID: 2490252566726440105}
+  - {fileID: 8973007012444122722}
+  - {fileID: 5936396519745199522}
+  - {fileID: 1491065135977793543}
+  - {fileID: 1404377431723519901}
+  - {fileID: 1603853328930674321}
+  - {fileID: 529020250548581903}
+  - {fileID: 1749873135}
+  - {fileID: 1422863808}
   level: 1
   animator: {fileID: 1240353046}
   currentState: 0
