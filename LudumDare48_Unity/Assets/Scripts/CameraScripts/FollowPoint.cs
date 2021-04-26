@@ -28,8 +28,8 @@ namespace CameraScript
         }
         public void Follow(float elapse)
         {
-            if (m_target == null) return;
-            m_transform.position = Vector3.Lerp(m_transform.position, m_target.PositionAndVelocity + m_offset, elapse * m_speed);
+            if (m_target == null || !m_target.gameObject.activeSelf) return;
+                m_transform.position = Vector3.Lerp(m_transform.position, m_target.PositionAndVelocity + m_offset, elapse * m_speed);
         }
     }
 }

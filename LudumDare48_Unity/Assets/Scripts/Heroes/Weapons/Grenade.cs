@@ -7,9 +7,11 @@ public class Grenade : MonoBehaviour
     Transform m_transform = null;
 
     [SerializeField] float m_height = 10;
+    [SerializeField] float m_speed = 3;
+
 
     bool m_exploded = false;
-    public float repelForce = 5.0f;
+    public float repelForce = 20.0f;
 
     Vector3 m_velocity;
 
@@ -21,8 +23,8 @@ public class Grenade : MonoBehaviour
 
     void FixedUpdate()
     {
-        m_velocity.y -=  9.81f * Time.fixedDeltaTime;
-        m_transform.Translate(m_velocity * Time.fixedDeltaTime);
+        m_velocity.y -=  9.81f * Time.fixedDeltaTime * m_speed;
+        m_transform.Translate(m_velocity * Time.fixedDeltaTime * m_speed);
         if (m_exploded || m_transform.position.y <= m_transform.localScale.x)
         {
             Explode();
@@ -43,7 +45,7 @@ public class Grenade : MonoBehaviour
         {
             if ((e.position - m_transform.position).sqrMagnitude < Action.Radius_Grenade * Action.Radius_Grenade)
             {
-                e.SetDamage(Action.Damage_Grenade);
+                e.SetDamage(Action.Damage_Grenade, null);
                 e.Repel(m_transform.position, repelForce);
             }
         }

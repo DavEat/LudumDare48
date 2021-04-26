@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Action : MonoBehaviour
 {
+    bool m_checkShieldActive = false;
     bool m_shieldActive = false;
     public bool shieldActive { get { return m_shieldActive; } }
     bool m_shieldAttack = false;
@@ -18,17 +19,23 @@ public class Action : MonoBehaviour
 
     [SerializeField] Hero[] m_heroes = null;
 
-    public const float Damage_Bullet = 10;
-    public const float Damage_Grenade = 10;
+    public const float Damage_Bullet = 1;
+    public const float Damage_Grenade = 8;
     public const float Radius_Grenade = 5;
-    public const float Damage_Spear = 10;
-    public const float Damage_Shield = 10;
+    public const float Damage_Round_Spear = 6;
+    public const float Damage_Spear = 18;
+    public const float Damage_Shield = 4;
 
 
     void Start()
     {
         foreach (Hero h in m_heroes)
             h.SetDefaultPosition();
+    }
+    void Update()
+    {
+        if (m_checkShieldActive && (Time.time - shieldHoldTime) > HoldTime && !m_shieldAttack)
+            m_shieldActive = true;
     }
     void FixedUpdate()
     {
@@ -72,15 +79,17 @@ public class Action : MonoBehaviour
 
             if (m_spearRoundAttack)
             {
-                foreach (Hero h in m_heroes)
-                    h.SetSpearRound();
+                if (Spear.inst.CanRoundAttack())
+                    foreach (Hero h in m_heroes)
+                        h.SetSpearRound();
                 m_spearRoundAttack = false;
             }
 
             if (m_spearPointyAttack)
             {
-                foreach (Hero h in m_heroes)
-                    h.SetSpearPointy();
+                if (Spear.inst.CanPointyAttack())
+                    foreach (Hero h in m_heroes)
+                        h.SetSpearPointy();
                 m_spearPointyAttack = false;
             }
 
@@ -89,13 +98,30 @@ public class Action : MonoBehaviour
                 foreach (Hero h in m_heroes)
                     h.SetAttackShield();
                 m_shieldAttack = false;
-            }            
+            }
         }
     }
 
+    float shieldHoldTime = 0;
+    const float HoldTime = .35f;
+
     public void OnShield(InputAction.CallbackContext context)
     {
-        m_shieldActive = !context.canceled;
+        if (context.started)
+        {
+            m_checkShieldActive = true;
+            shieldHoldTime = Time.time;
+        }
+        else if (context.canceled)
+        {
+            Debug.LogFormat("t: {0} _ {1} _ {2}", Time.time - shieldHoldTime, Time.time, shieldHoldTime);
+            if ((Time.time - shieldHoldTime) < HoldTime)
+            {
+                m_shieldAttack = true;
+            }
+            m_checkShieldActive = false;
+            m_shieldActive = false;
+        }
     }
     public void OnFireMachineGun(InputAction.CallbackContext context)
     {
@@ -109,7 +135,8 @@ public class Action : MonoBehaviour
     }
     public void OnShieldAttack(InputAction.CallbackContext context)
     {
-        m_shieldAttack = !context.canceled;
+        //Debug.Log("sh b: " + (context.time - context.startTime));
+        //m_shieldAttack = !context.canceled;
     }
     public void OnSpearRoundAttack(InputAction.CallbackContext context)
     {

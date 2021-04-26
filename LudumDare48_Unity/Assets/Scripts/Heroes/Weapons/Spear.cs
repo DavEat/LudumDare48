@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : MonoBehaviour
+public class Spear : Singleton<Spear>
 {
-    [SerializeField] Transform m_spear = null;
-
     [SerializeField] float m_pointyAttackCoolDown= 1;
     [SerializeField] float m_roundAttackCoolDown = 3;
+
+    [SerializeField] float m_repelForce = 10;
 
     [SerializeField] Transform m_pivot = null;
 
@@ -17,8 +17,10 @@ public class Spear : MonoBehaviour
     Transform m_transform = null;
     Animator m_anim = null;
 
-    [SerializeField] float m_damage = 10;
+    float m_damage = 10;
     public float damage { get { return m_damage; } }
+    public Vector3 origin { get { return m_pivot.position; } }
+    public float repelForce { get { return m_repelForce; } }
 
     void Start()
     {
@@ -31,18 +33,28 @@ public class Spear : MonoBehaviour
     }
     public void PointyAttack()
     {
-        if (m_pointyAttackTime < Time.time)
+        if (CanPointyAttack())
         {
+            m_damage = Action.Damage_Spear;
             m_pointyAttackTime = Time.time + m_pointyAttackCoolDown;
             m_anim.SetTrigger("PointyAttack");
         }
     }
+    public bool CanPointyAttack()
+    {
+        return m_pointyAttackTime < Time.time;
+    }
     public void RoundAttack()
     {
-        if (m_roundAttackTime < Time.time)
+        if (CanRoundAttack())
         {
+            m_damage = Action.Damage_Round_Spear;
             m_roundAttackTime = Time.time + m_roundAttackCoolDown;
             m_anim.SetTrigger("RoundAttack");
         }
+    }
+    public bool CanRoundAttack()
+    {
+        return m_roundAttackTime < Time.time;
     }
 }

@@ -21,6 +21,8 @@ public class Shield : MonoBehaviour
 
     bool m_shieldRaised = false;
 
+    [SerializeField] float repelForce = 10; 
+
     void Start()
     {
         m_transform = GetComponent<Transform>();
@@ -66,12 +68,13 @@ public class Shield : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            if (!m_shieldRaised)
+            Debug.LogFormat("Shield touch enemy: {0}", other.name, other.gameObject);
+            Enemy e = other.GetComponent<Enemy>();
+            if (e != null)
             {
-                Debug.LogFormat("Shield touch enemy: {0}", other.name, other.gameObject);
-                Enemy e = other.GetComponent<Enemy>();
-                if (e != null)
-                    e.SetDamage(Action.Damage_Shield);
+                if (!m_shieldRaised)
+                    e.SetDamage(Action.Damage_Shield, this);
+                e.Repel(m_transform.position, repelForce);
             }
         }
     }
