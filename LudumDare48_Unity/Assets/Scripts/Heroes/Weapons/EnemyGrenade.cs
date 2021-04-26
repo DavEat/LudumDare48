@@ -36,10 +36,14 @@ public class EnemyGrenade : MonoBehaviour
         {
             m_exploded = true;
         }
+        if (other.CompareTag("Shield"))
+        {
+            Explode(true);
+        }
     }
-    void Explode()
+    void Explode(bool prevented = false)
     {
-        if (m_exploded || (Movement.inst.Position - m_transform.position).sqrMagnitude < grenadeRadius * grenadeRadius)
+        if (!prevented && (m_exploded || (Movement.inst.Position - m_transform.position).sqrMagnitude < grenadeRadius * grenadeRadius))
             Movement.inst.GetComponent<HeroesLife>().GetDamage(damage);
 
         gameObject.SetActive(false);

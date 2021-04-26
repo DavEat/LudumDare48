@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 3139906318571065763}
   - component: {fileID: 1042919412593688525}
   - component: {fileID: 2139173546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: H_Shield
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_dashCoolDown: 0.2
   m_dashPush: {fileID: 1933103527}
   m_moveLookSpeed: 1.5
-  m_shieldLookSpeed: 3
+  m_shieldLookSpeed: 0.8
   m_directionArrow: {fileID: 1847826060}
 --- !u!114 &3139906319248228030
 MonoBehaviour:
@@ -2705,7 +2705,7 @@ GameObject:
   - component: {fileID: 3139906319624251621}
   - component: {fileID: 7287703793510194383}
   - component: {fileID: 377543330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: H_Halbard
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2946,7 +2946,7 @@ GameObject:
   - component: {fileID: 3139906319849499252}
   - component: {fileID: 5134852543707044124}
   - component: {fileID: 358378831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: H_MachineGun
   m_TagString: Player
   m_Icon: {fileID: 0}

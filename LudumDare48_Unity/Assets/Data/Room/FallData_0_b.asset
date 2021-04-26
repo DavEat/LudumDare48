@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79e9d0fc46606e47a6ba1a3c1e2d56f, type: 3}
+  m_Name: FallData_0_b
+  m_EditorClassIdentifier: 
+  m_speed: 9.81
+  m_duration: 3
+  m_startY: 0
+  m_directionY: -0.1
+  changeAngle: 1
+  m_angleRand: {x: 30, y: 30, z: 30}
+  m_angleStart: {x: 0, y: 0, z: 0}
+  m_scale: {x: 1, y: 1, z: 1}
+  changeMesh: 1
+  variations: []
+  modelsTime:
+  - time: 0
+    mesh: {fileID: -2432090755550338912, guid: 69ec06ab3f788034ebe63152bc363ade, type: 3}
+  - time: 0.25
+    mesh: {fileID: -2432090755550338912, guid: 475d0cc2196027b48a8a0dc99d299b01, type: 3}
+  - time: 0.5
+    mesh: {fileID: -2432090755550338912, guid: 3d22ae4c0f7fd8641838fd82765c42b7, type: 3}
+  - time: 0.75
+    mesh: {fileID: -2432090755550338912, guid: 852a7483d2397e5419db34daaf7972e4, type: 3}
+  - time: 0.95
+    mesh: {fileID: 0}
