@@ -54,6 +54,12 @@ public class Hero : MonoBehaviour
     }
     public void SetDefaultPosition()
     {
+        if (m_transform == null)
+        {
+            m_transform = GetComponent<Transform>();
+            m_anim = GetComponent<Animator>();
+        }
+
         m_transform.localPosition = m_defaultPosition;
         m_transform.localEulerAngles = Vector3.up * m_defaultAngle;
      

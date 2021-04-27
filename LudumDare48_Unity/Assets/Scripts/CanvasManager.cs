@@ -32,18 +32,18 @@ public class CanvasManager : Singleton<CanvasManager>
     {
         if (m_target != -1 && context.started)
         {
-            Debug.Log("next");
             if (m_target < m_screens.Length)
                 m_screens[m_target].SetActive(false);
             if (++m_target < m_screens.Length)
                 m_screens[m_target].SetActive(true);
             else
             {
-                m_target = - 1;
+                m_target = -1;
                 m_screens[m_screens.Length - 1].SetActive(false);
 
                 GameManager.inst.StartGame();
             }
         }
+        else PauseBack(context);
     }
 }
