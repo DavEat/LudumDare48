@@ -22,6 +22,7 @@ public class MachineGun : MonoBehaviour
     Transform m_transform = null;
 
     AudioSource m_audioSource;
+    [SerializeField] AudioClip[] m_audioclip;
 
     void Start()
     {
@@ -41,12 +42,11 @@ public class MachineGun : MonoBehaviour
     public void StartFiring()
     {
         m_firing = true;
-        m_audioSource.Play();
+
     }
     public void StopFiring()
     {
         m_firing = false;
-        m_audioSource.Stop();
     }
     bool CanFire()
     {
@@ -59,6 +59,7 @@ public class MachineGun : MonoBehaviour
         Instantiate(m_bulletPrefab, m_emmisionPoint[m_nextEmisionPoint].position,Quaternion.Euler(m_emmisionPoint[m_nextEmisionPoint].eulerAngles + dispersion)).Init(bulletSpeed);
         GameObject vfx = Instantiate(m_MuzzleVFX, m_emmisionPoint[m_nextEmisionPoint].position, m_emmisionPoint[m_nextEmisionPoint].rotation);
         Destroy(vfx, m_VFXLifeTime);
+        m_audioSource.PlayOneShot(m_audioclip[Random.Range(0, m_audioclip.Length)]);
         m_nextEmisionPoint++;
         if(m_nextEmisionPoint > m_emmisionPoint.Length - 1)
         {
