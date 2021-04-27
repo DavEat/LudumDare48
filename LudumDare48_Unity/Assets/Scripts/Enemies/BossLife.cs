@@ -81,9 +81,6 @@ public class BossLife : MonoBehaviour
 
         EnemyManager.inst.boss.Add(this);
 
-        m_transform = GetComponent<Transform>();
-        m_spawner = GetComponent<EnemySpawner>();
-
         life = maxLife;
 
         currentLifeStep = 0;
@@ -101,6 +98,7 @@ public class BossLife : MonoBehaviour
 
         m_lifeBar.UpdateLife(.66f);
 
-        m_material.SetFloat(propertyName, 1);
+        if (m_transform != null)
+            m_material.SetFloat(propertyName, 1);
     }
 }
