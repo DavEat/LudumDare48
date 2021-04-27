@@ -30,12 +30,12 @@ public class Enemy : MonoBehaviour
     public int level = 1;
     private Rigidbody rb;
     public Animator animator;
-    private Transform m_transform;
+    private Transform m_transform = null;
     private Vector3 tranformForward;
     private float lastTimeAttack;
     private float speed = 5;
     //private bool repulse = false;
-    public Vector3 position { get { return rb.position; } }
+    public Vector3 position { get { return m_transform.position; } }
     public enum ActionState
     {
         GoingForward,
@@ -85,8 +85,8 @@ public class Enemy : MonoBehaviour
                 for (int i = 0; i < enemySpawner.spawnerPreset.divisionFactor; i++)
                 {
                     Enemy enemyChild = Instantiate(EnemyManager.inst.Enemies[level], m_transform.position + m_transform.right * i * m_transform.localScale.x / 2.0f - m_transform.right * m_transform.localScale.x / (2.0f * enemySpawner.spawnerPreset.divisionFactor), m_transform.rotation * Quaternion.Euler(0, (enemySpawner.spawnerPreset.propagationAngle / enemySpawner.spawnerPreset.enemyNbrAtIntantiation) / (enemySpawner.spawnerPreset.divisionFactor * level) * (i - (enemySpawner.spawnerPreset.divisionFactor - 1) / 2.0f), 0));
-                    EnemyManager.inst.enemiesScripts.Add(enemyChild);
                     enemyChild.Init(enemySpawner, m_behavioursToPlayer);
+                    EnemyManager.inst.enemiesScripts.Add(enemyChild);
                 }
             }
             EnemyManager.inst.enemiesScripts.Remove(this);

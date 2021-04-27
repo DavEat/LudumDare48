@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -33502,6 +33502,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyLevel2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1524973616208480531, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1524973616208480536, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
       propertyPath: enemySpawner
       value: 
@@ -37282,6 +37286,10 @@ PrefabInstance:
     - target: {fileID: 1524973616208480531, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
       propertyPath: m_Name
       value: EnemyLevel2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524973616208480531, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1524973616208480536, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
       propertyPath: enemySpawner
@@ -43074,6 +43082,10 @@ PrefabInstance:
     - target: {fileID: 1524973616208480531, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
       propertyPath: m_Name
       value: EnemyLevel2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524973616208480531, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1524973616208480536, guid: b474ee7b2c60df843b82aa3add726d85, type: 3}
       propertyPath: enemySpawner

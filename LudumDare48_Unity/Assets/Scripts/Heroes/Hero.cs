@@ -100,8 +100,13 @@ public class Hero : MonoBehaviour
         if (m_machineGun != null)
         {
             if (fire)
+            {
                 m_machineGun.StartFiring();
-            else m_machineGun.StopFiring();
+            }
+            else
+            {
+                m_machineGun.StopFiring();
+            }
         }
     }
     public void SetPrepareGrenade(bool prepare)

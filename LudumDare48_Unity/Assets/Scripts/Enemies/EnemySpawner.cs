@@ -49,8 +49,8 @@ public class EnemySpawner : MonoBehaviour
             Enemy enemy = Instantiate(spawnerPreset.enemyToSpawn,
                 transform.position + Quaternion.Euler(0, spawnerPreset.propagationAngle / spawnerPreset.enemyNbrAtIntantiation * (i - (spawnerPreset.enemyNbrAtIntantiation - 1) / 2.0f) + randomAngle, 0) * transform.forward * spawnerPreset.baseDistanceFromBoss * distance,
                 transform.rotation * Quaternion.Euler(0, spawnerPreset.propagationAngle / spawnerPreset.enemyNbrAtIntantiation * (i - (spawnerPreset.enemyNbrAtIntantiation - 1) / 2.0f) + randomAngle, 0));
-            EnemyManager.inst.enemiesScripts.Add(enemy);
             enemy.Init(this, asBeenAttack ? SO_Spawner.BehavioursToPlayer.agressive : spawnerPreset.Behaviour(0));
+            EnemyManager.inst.enemiesScripts.Add(enemy);
         }
     }
 }

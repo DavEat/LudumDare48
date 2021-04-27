@@ -21,9 +21,12 @@ public class MachineGun : MonoBehaviour
 
     Transform m_transform = null;
 
+    AudioSource m_audioSource;
+
     void Start()
     {
-        m_transform = GetComponent<Transform>();        
+        m_transform = GetComponent<Transform>();
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -38,10 +41,12 @@ public class MachineGun : MonoBehaviour
     public void StartFiring()
     {
         m_firing = true;
+        m_audioSource.Play();
     }
     public void StopFiring()
     {
         m_firing = false;
+        m_audioSource.Stop();
     }
     bool CanFire()
     {
